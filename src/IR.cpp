@@ -102,9 +102,6 @@ void _IRreg()
 {
   IR.tick();
 
-  
   if (IR.available()) 
-  {
     _comparison();
-  }
 }
