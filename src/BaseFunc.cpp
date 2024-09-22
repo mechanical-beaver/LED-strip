@@ -21,15 +21,17 @@ bool status = false;
 CRGB activ_color;
 float brightness = 1;
 
-TaskHandle_t pv_mode;
+// TaskHandle_t pv_mode;
 
 void _filling(CRGB _color)
 {
   activ_color = _color;
+
   for (uint8_t i = 0; i < NUM_LEDS; i++)
   {
     leds[i] = CRGB(round(activ_color[0] * brightness), round(activ_color[1] * brightness), round(activ_color[2] * brightness));
   }
+
   FastLED.show();
 }
 
@@ -53,9 +55,15 @@ void _off_on()
 
 void _change_brightness(bool _change)
 {
-  if (_change) brightness += 0.1;
-  else brightness -= 0.1;
-  if (brightness > 1) brightness = 1;
-  else if (brightness < 0.1) brightness = 0.1;
+  if (_change)
+    brightness += 0.1;
+  else
+    brightness -= 0.1;
+
+  if (brightness > 1)
+    brightness = 1;
+  else if (brightness < 0.1)
+    brightness = 0.1;
+
   _filling(activ_color);
 }

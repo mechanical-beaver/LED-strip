@@ -1,5 +1,3 @@
-// #include <Arduino.h>
-
 #include "mods.h"
 
 #include "IR.h"
@@ -12,7 +10,6 @@ uint8_t maxValue(uint8_t value1, uint8_t value2, uint8_t value3);
 uint8_t wrapped_distance(uint8_t point, uint8_t rangeStart, uint8_t rangeEnd, uint8_t length);
 int8_t triangel_signal(uint16_t T, uint8_t amplitude, uint8_t t);
 uint8_t return_pulse(uint8_t value, uint8_t tern);
-
 
 
 void _blink(void *pvParameters)
@@ -64,13 +61,16 @@ void _filling_line(void *pvParameters)
   CRGB color = base_colors.red;
   for (;;)
   {
-    if (stage) leds[offset] = color;
-    else leds[offset] = base_colors.black;
+    if (stage)
+      leds[offset] = color;
+    else
+      leds[offset] = base_colors.black;
     FastLED.show();
     vTaskDelay(lag);
     offset ++;
     offset = offset % NUM_LEDS;
-    if (offset == 0) stage = !stage;
+    if (offset == 0)
+      stage = !stage;
   }
   vTaskDelete(NULL);
 }
@@ -147,31 +147,47 @@ void _pulse(void *pvParameters)
 
 uint8_t fire_random(uint8_t _value, uint8_t _step)
 {
-  if (_value == 0) return _value;
+  if (_value == 0)
+    return _value;
 
   int16_t result;
-  if (rand() % 2 == 1) result = _value + rand() % _step;
-  else result = _value - rand() % _step;
+  if (rand() % 2 == 1)
+    result = _value + rand() % _step;
+  else
+    result = _value - rand() % _step;
 
-  if (result > 255) result = 255;
-  else if (result < 0) result = 0;
+  if (result > 255)
+    result = 255;
+  else if (result < 0)
+    result = 0;
+
   return result;
 }
 
 uint8_t minValue(uint8_t value1, uint8_t value2, uint8_t value3, uint8_t value4)
 {
   uint8_t result = value1;
-  if (result > value2) result = value2;
-  if (value3 != 0) if (result > value3) result = value3;
-  if (value4 != 0) if (result > value4) result = value4;
+  if (result > value2)
+    result = value2;
+
+  if (value3 != 0)
+    if (result > value3) result = value3;
+
+  if (value4 != 0)
+    if (result > value4) result = value4;
+  
   return result;
 }
 
 uint8_t maxValue(uint8_t value1, uint8_t value2, uint8_t value3)
 {
   uint8_t result = value1;
-  if (result < value2) result = value2;
-  if (result < value3) result = value3;
+  if (result < value2)
+    result = value2;
+
+  if (result < value3)
+    result = value3;
+
   return result;
 }
 
@@ -183,31 +199,42 @@ uint8_t wrapped_distance(uint8_t point, uint8_t rangeStart, uint8_t rangeEnd, ui
 
   if (rangeStart <= rangeEnd)
   {
-    if (point >= rangeStart && point <= rangeEnd) return 0.0; 
-    else return min(abs(point - rangeStart), abs(point - rangeEnd));
+    if (point >= rangeStart && point <= rangeEnd)
+      return 0.0; 
+    else
+      return min(abs(point - rangeStart), abs(point - rangeEnd));
   } 
 
   else
   {
-    if (point >= rangeStart || point <= rangeEnd) return 0.0; 
-    else return minValue(abs(point - rangeStart), abs(point - rangeEnd), length - abs(point - rangeStart), length - abs(point - rangeEnd));
+    if (point >= rangeStart || point <= rangeEnd)
+      return 0.0; 
+    else
+      return minValue(abs(point - rangeStart), abs(point - rangeEnd), length - abs(point - rangeStart), length - abs(point - rangeEnd));
   }
 }
 
 int8_t triangel_signal(uint16_t T, uint8_t amplitude, uint8_t t)
 {
-  if      (t <= T/4)         return ((4 * amplitude * t)/T);
-  else if (t <= (3 * T)/4)   return (-(((4 * amplitude)/T) * t)) + 2 * amplitude;
-  else                       return ((4 * amplitude * t)/T) - 4 * amplitude;
+  if (t <= T/4)
+    return ((4 * amplitude * t)/T);
+  else if (t <= (3 * T)/4)
+    return (-(((4 * amplitude)/T) * t)) + 2 * amplitude;
+  else
+    return ((4 * amplitude * t)/T) - 4 * amplitude;
 }
 
 uint8_t return_pulse(uint8_t value, uint8_t tern)
 {
-  if (value == 0) return 0;
+  if (value == 0)
+    return 0;
   else
   {
-    if (value + tern > 255) return 255;
-    else if (value + tern < 0) return 0;
-    else return value + tern;
+    if (value + tern > 255)
+      return 255;
+    else if (value + tern < 0)
+      return 0;
+    else
+      return value + tern;
   }
 }
