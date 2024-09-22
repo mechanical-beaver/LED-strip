@@ -30,4 +30,3 @@ extern colors base_colors;
 void _off_on();
 void _filling(CRGB _color);
 void _change_brightness(bool _change);
-// void SetMode(uint8_t mode);

@@ -26,17 +26,18 @@ TaskHandle_t pv_mode;
 void _off_on()
 { 
   if (status) for (uint8_t i = 0; i < NUM_LEDS; i++) leds[i] = base_colors.black;
-  else for (uint8_t i = 0; i < NUM_LEDS; i++) leds[i] = activ_color * brightness;
+  else        for (uint8_t i = 0; i < NUM_LEDS; i++) leds[i] = activ_color * brightness;
   FastLED.show();
 }
 
 void _filling(CRGB _color)
 {
-  // activ_color = _color;
+  activ_color = _color;
   for (uint8_t i = 0; i < NUM_LEDS; i++)
   {
-    leds[i] = _color;
+    leds[i] = activ_color;
   }
+  FastLED.show();
 }
 
 void _change_brightness(bool _change)
@@ -47,40 +48,3 @@ void _change_brightness(bool _change)
   else if (brightness < 0) brightness = 0;
   _filling(activ_color);
 }
-
-// void SetMode(uint8_t mode)
-// {
-//   // switch (mode)
-//   // {
-//   //   case 0:
-//   //   {
-//   //     //xTaskCreate (Blink, "effect_selector", 128, NULL, 0, &pv_mode);
-//   //   } break;
-
-//   //   case 1:
-//   //   {
-//   //     //xTaskCreate (Fire, "effect_selector", 128, NULL, 0, &pv_mode);
-//   //   } break;
-
-//   //   case 2:
-//   //   {
-//   //     xTaskCreate (Filling_Line, "effect_selector", 128, NULL, 0, &pv_mode);
-//   //   } break;
-
-//   //   case 3:
-//   //   {
-//   //     //xTaskCreate (Snake, "effect_selector", 128, NULL, 0, &pv_mode);
-//   //   } break;
-
-//   //   case 4:
-//   //   {
-//   //     //xTaskCreate (Pulse, "effect_selector", 128, NULL, 0, &pv_mode);
-//   //   } break;
-
-//   //   case 255:
-//   //   {
-//   //     vTaskDelete(pv_mode);
-//   //     SetColor(Num_Color);
-//   //   } break;
-//   // }
-// }

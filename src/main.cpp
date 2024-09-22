@@ -12,7 +12,7 @@
 void setup()
 {
   FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS);
-  attachInterrupt(0, IRreg, FALLING);
+  attachInterrupt(0, _IRreg, FALLING);
   Serial.begin(9600);
   _off_on();
 }

@@ -4,12 +4,9 @@
 #include "mods.h"
 
 NecDecoder IR;
-
 uint8_t data_pack;
 
-bool flag_mode = false;
-
-void Comparison()
+void _comparison()
 {
   data_pack = IR.readCommand();
   
@@ -40,7 +37,7 @@ void Comparison()
       _filling(base_colors.pink);
     } break;
 
-    case 192:           //6
+    case 194:           //6
     {
       _filling(base_colors.orange);
     } break;
@@ -71,7 +68,7 @@ void Comparison()
 
     case 176:           //#
     {
-      xTaskCreate (_pulse, "effect_selector", 128, NULL, 0, NULL);
+      // xTaskCreate (_pulse, "effect_selector", 128, NULL, 0, NULL);
     } break;
 
     case 24:            //🠉
@@ -101,13 +98,13 @@ void Comparison()
   }
 }
 
-void IRreg()
+void _IRreg()
 {
   IR.tick();
 
   
   if (IR.available()) 
   {
-    Comparison();
+    _comparison();
   }
 }

@@ -125,11 +125,6 @@ void _pulse(void *pvParameters)
     current_time = lag * iteration;
     uint8_t current_step = triangel_signal(period, step, current_time);
 
-    // leds[offset] = CRGB(
-    //   (color[0] == 0) ? 0 : max(0, min(255, color[0] + current_step)),
-    //   (color[1] == 0) ? 0 : max(0, min(255, color[1] + current_step)),
-    //   (color[2] == 0) ? 0 : max(0, min(255, color[2] + current_step))
-    // );
     leds[offset] = CRGB(return_pulse(color[0], current_step), return_pulse(color[1], current_step), return_pulse(color[2], current_step));
 
     iteration ++;
